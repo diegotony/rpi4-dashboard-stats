@@ -2,6 +2,5 @@ version: "3.9"
 services:
   web:
     image: rpi4-dashboard:latest
-    # build: .
     ports:
       - "8000:8000"
