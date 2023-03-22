@@ -9,6 +9,10 @@ PIP=${ENV_FOLDER}/bin/pip
 help:  ## Help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+requirements: ## Install requirements
+	# Install tilt
+	curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash
+
 create_env: ## Create Environment
 	pip install virtualenv
 	virtualenv ${ENV_FOLDER}
@@ -27,4 +31,7 @@ build: ## Build Docker App
 
 run: build ## Run DockerApp
 	@echo "Running..."
-	docker run -p 8000:8000  ${IMAGE_NAME}:${TAG}
+	@echo -e "docker_compose(\"./docker-compose.yml\")\ndocker_build(\"${IMAGE_NAME}\", context=\".\",dockerfile=\"Dockerfile\",live_update=[sync(\"app.py\", \"/app/app.py\"),sync(\"templates/\", \"/app/templates/\")])" > Tiltfile
+	# @echo "docker_build('${IMAGE_NAME}', context='.',dockerfile='Dockerfile',live_update=[sync('app.py', '/app/app.py'),sync('templates/', '/app/templates/')],entrypoint='gunicorn -w 4 --bind 0.0.0.0:8000 --access-logfile - app:app')" > Tiltfile
+	tilt up
+	# docker run -p 8000:8000  ${IMAGE_NAME}:${TAG}

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, redirect, url_for
 from flask_restful import Resource, Api
 import psutil
 
@@ -24,23 +24,17 @@ class PiData(Resource):
             'disk_usage_percent': disk.percent,
             'sensor_temperatures': psutil.sensors_temperatures(),
             'sensor_fans': psutil.sensors_fans()
-            
-            }
 
+        }
 
         return system_info_data
 
-
-
 api.add_resource(PiData, "/get-stats")
 
+@app.route("/")
+def home():
+    return render_template("index.html", name="Diegoo")
 
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
-
-
-api.add_resource(HelloWorld, '/')
 
 if __name__ == '__main__':
     app.run(debug=True)
