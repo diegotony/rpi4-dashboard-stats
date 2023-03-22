@@ -33,7 +33,7 @@ api.add_resource(PiData, "/get-stats")
 
 @app.route("/")
 def home():
-    return render_template("index.html", name="Diegoo")
+    return render_template("index.html", name="Diego")
 
 
 if __name__ == '__main__':

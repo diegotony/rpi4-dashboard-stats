@@ -32,6 +32,5 @@ build: ## Build Docker App
 run: build ## Run DockerApp
 	@echo "Running..."
 	@echo -e "docker_compose(\"./docker-compose.yml\")\ndocker_build(\"${IMAGE_NAME}\", context=\".\",dockerfile=\"Dockerfile\",live_update=[sync(\"app.py\", \"/app/app.py\"),sync(\"templates/\", \"/app/templates/\")])" > Tiltfile
-	# @echo "docker_build('${IMAGE_NAME}', context='.',dockerfile='Dockerfile',live_update=[sync('app.py', '/app/app.py'),sync('templates/', '/app/templates/')],entrypoint='gunicorn -w 4 --bind 0.0.0.0:8000 --access-logfile - app:app')" > Tiltfile
 	tilt up
 	# docker run -p 8000:8000  ${IMAGE_NAME}:${TAG}
