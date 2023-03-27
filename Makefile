@@ -33,6 +33,6 @@ build: ## Build Docker App
 
 run: build ## Run DockerApp
 	@echo "Running..."
-	@echo -e "docker_compose(\"./docker-compose.yml\")\ndocker_build(\"${IMAGE_NAME}\", context=\".\",dockerfile=\"Dockerfile\",live_update=[sync(\"app.py\", \"/app/app.py\"),sync(\"templates/\", \"/app/templates/\")])" > Tiltfile
+	@echo -e "docker_compose(\"./docker-compose.yml\")\ndocker_build(\"${IMAGE_NAME}\", context=\".\",dockerfile=\"Dockerfile\",live_update=[sync(\"app.py\", \"/app/app.py\"),sync(\"templates/index.html\", \"/app/templates/index.html\")])" > Tiltfile
 	tilt up
 	# docker run -p 8000:8000  ${IMAGE_NAME}:${TAG}

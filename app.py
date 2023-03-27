@@ -50,7 +50,25 @@ def home():
         'sensor_temperatures': str(psutil.sensors_temperatures()),
         'sensor_fans': str(psutil.sensors_fans())
     }
-    return render_template("index.html", title="rpi-stats", data=system_info_data)
+    return render_template("index.html", 
+                           title="rpi-stats", 
+                           data=system_info_data,
+                           test=str(psutil.cpu_percent(1)),
+                           disk_usage=psutil.disk_usage('/'),
+                           cpu_percent=str(psutil.cpu_percent(1)),
+                           cpu_num_logic=str(psutil.cpu_count()),
+                           cpu_num_no_logical=str(psutil.cpu_count(logical=False)),
+                           cpu_mem_total= str(memory.total),
+                           cpu_mem_avail= str(memory.available),
+                           cpu_mem_used=str(memory.used),
+                           cpu_mem_free= str(memory.free),
+                        #    data=system_info_data,
+                        #    data=system_info_data,
+                        #    data=system_info_data,
+                        #    data=system_info_data,
+                        #    data=system_info_data,
+                        #    data=system_info_data,           
+                           )
 
 
 if __name__ == '__main__':
