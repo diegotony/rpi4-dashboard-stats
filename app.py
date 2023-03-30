@@ -35,6 +35,7 @@ api.add_resource(PiData, "/get-stats")
 def home():
     memory = psutil.virtual_memory()
     disk = psutil.disk_usage('/')
+    widget_ids = ["widget1", "widget2", "widget3"]
     system_info_data = {
         'cpu_percent': str(psutil.cpu_percent(1)),
         'cpu_count': str(psutil.cpu_count()),
@@ -48,7 +49,8 @@ def home():
         'disk_usage_free': str(disk.free),
         'disk_usage_percent': str(disk.percent),
         'sensor_temperatures': str(psutil.sensors_temperatures()),
-        'sensor_fans': str(psutil.sensors_fans())
+        'sensor_fans': str(psutil.sensors_fans()
+        )
     }
     return render_template("index.html", 
                            title="rpi-stats", 
@@ -62,6 +64,7 @@ def home():
                            cpu_mem_avail= str(memory.available),
                            cpu_mem_used=str(memory.used),
                            cpu_mem_free= str(memory.free),
+                           widget_ids=widget_ids
                         #    data=system_info_data,
                         #    data=system_info_data,
                         #    data=system_info_data,
