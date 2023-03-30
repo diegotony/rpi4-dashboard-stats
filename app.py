@@ -2,7 +2,11 @@ from flask import Flask, render_template, redirect, url_for
 from flask_restful import Resource, Api
 import psutil
 
-app = Flask(__name__)
+app = Flask(__name__,
+            static_url_path='', 
+            static_folder='static',
+            template_folder='templates'
+            )
 api = Api(app)
 
 

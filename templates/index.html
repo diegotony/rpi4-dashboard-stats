@@ -21,22 +21,100 @@
 </body>
 </html> -->
 
-<script src="node_modules/gridstack/dist/gridstack-h5.js"></script>
-<script src="{{ url_for('node_modules/gridstack/dist', filename='dashboard.js') }}"></script>
-<!-- "{{ url_for('static', filename='dashboard.js') }}" -->
-<link href="node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
-<style type="text/css">
-  .grid-stack { background: #FAFAD2; }
-  .grid-stack-item-content { background-color: #18BC9C; }
-</style>
-
-<div class="grid-stack"></div>
-
-<script type="text/javascript">
-  var items = [
-    {content: 'my first widget'}, // will default to location (0,0) and 1x1
-    {w: 2, content: 'another longer widget!'} // will be placed next at (1,0) and 2x1
-  ];
-  var grid = GridStack.init();
-  grid.load(items);
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Dashboard</title>
+	<style>
+		/* Estilos para el dashboard */
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		.widget {
+			position: absolute;
+			top: 50px;
+			left: 50px;
+			width: 200px;
+			height: 200px;
+			background-color: #fff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+			border-radius: 5px;
+			overflow: hidden;
+			cursor: grab;
+		}
+		.widget h2 {
+			margin: 0;
+			padding: 10px;
+			background-color: #333;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="widget">
+		<h2>Widget 1</h2>
+	</div>
+	<div class="widget">
+		<h2>Widget 2</h2>
+	</div>
+	<div class="widget">
+		<h2>Widget 3</h2>
+	</div>
+	
+	<script>
+function makeWidgetDraggable(widget, dashboard) {
+	let isDragging = false;
+	let startX = 0, startY = 0;
+	let initialX = 0, initialY = 0;
+	let xOffset = 0, yOffset = 0;
+	
+	// Obtiene los límites del área del dashboard
+	const minX = 0;
+	const minY = 0;
+	const maxX = dashboard.clientWidth - widget.offsetWidth;
+	const maxY = dashboard.clientHeight - widget.offsetHeight;
+	
+	// Agrega un evento al hacer clic en el widget
+	widget.addEventListener("mousedown", function(event) {
+		isDragging = true;
+		
+		// Obtiene la posición inicial del mouse
+		initialX = event.clientX - xOffset;
+		initialY = event.clientY - yOffset;
+		
+		if (event.target === widget) {
+			widget.style.cursor = "grabbing";
+		}
+	});
+	
+	// Agrega un evento al soltar el widget
+	widget.addEventListener("mouseup", function(event) {
+		isDragging = false;
+		
+		if (event.target === widget) {
+			widget.style.cursor = "grab";
+		}
+	});
+	
+	// Agrega un evento al mover el mouse
+	widget.addEventListener("mousemove", function(event) {
+		if (isDragging) {
+			// Obtiene la posición actual del mouse
+			xOffset = event.clientX - initialX;
+			yOffset = event.clientY - initialY;
+			
+			// Limita el movimiento del widget al área del dashboard
+			let x = Math.min(Math.max(minX, widget.offsetLeft + xOffset), maxX);
+			let y = Math.min(Math.max(minY, widget.offsetTop + yOffset), maxY);
+			
+			// Mueve el widget a la nueva posición
+			widget.style.left = x + "px";
+			widget.style.top = y + "px";
+		}
+	});
+}
+	</script>
+</body>
+</html>

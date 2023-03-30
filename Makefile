@@ -12,7 +12,6 @@ help:  ## Help
 requirements: ## Install requirements
 	# Install tilt
 	curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash
-	npm install gridstack
 
 create_env: ## Create Environment
 	pip install virtualenv
@@ -28,7 +27,6 @@ install: create_env ## Install dependencies
 
 build: ## Build Docker App 
 	@echo "Building..."
-	npm install gridstack
 	docker build --no-cache -t  ${IMAGE_NAME}:${TAG} .
 
 run: build ## Run DockerApp
