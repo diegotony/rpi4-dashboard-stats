@@ -16,6 +16,7 @@ class PiData(Resource):
         disk = psutil.disk_usage('/')
         system_info_data = {
             'cpu_percent': psutil.cpu_percent(1),
+            'cpu_times': psutil.cpu_times(),
             'cpu_count': psutil.cpu_count(),
             'cpu_freq': psutil.cpu_freq(),
             'cpu_mem_total': memory.total,
@@ -41,9 +42,12 @@ def home():
     disk = psutil.disk_usage('/')
     widget_ids = ["widget1", "widget2", "widget3"]
     system_info_data = {
+        'OS': str(psutil.LINUX),
         'cpu_percent': str(psutil.cpu_percent(1)),
         'cpu_count': str(psutil.cpu_count()),
         'cpu_freq': str(psutil.cpu_freq()),
+        'cpu_times': str(psutil.cpu_times()),
+        'cpu_stats': str(psutil.cpu_stats()),
         'cpu_mem_total': str(memory.total),
         'cpu_mem_avail': str(memory.available),
         'cpu_mem_used': str(memory.used),
@@ -61,20 +65,15 @@ def home():
                            data=system_info_data,
                            test=str(psutil.cpu_percent(1)),
                            disk_usage=psutil.disk_usage('/'),
+                           cpu_freq = str(psutil.cpu_freq()),
+
                            cpu_percent=str(psutil.cpu_percent(1)),
                            cpu_num_logic=str(psutil.cpu_count()),
-                           cpu_num_no_logical=str(psutil.cpu_count(logical=False)),
+                           cpu_count=str(psutil.cpu_count()),
                            cpu_mem_total= str(memory.total),
                            cpu_mem_avail= str(memory.available),
                            cpu_mem_used=str(memory.used),
-                           cpu_mem_free= str(memory.free),
-                           widget_ids=widget_ids
-                        #    data=system_info_data,
-                        #    data=system_info_data,
-                        #    data=system_info_data,
-                        #    data=system_info_data,
-                        #    data=system_info_data,
-                        #    data=system_info_data,           
+                           cpu_mem_free= str(memory.free), 
                            )
 
 
