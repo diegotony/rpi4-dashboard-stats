@@ -9,7 +9,6 @@ app = Flask(__name__,
             )
 api = Api(app)
 
-
 class PiData(Resource):
     def get(self):
         memory = psutil.virtual_memory()
