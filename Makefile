@@ -1,7 +1,7 @@
 IMAGE_NAME=rpi4-dashboard
 TAG=latest
 REQUIREMENTS_FILE=requirements.txt
-ENV_FOLDER=.env
+ENV_FOLDER=env
 SHELL := /bin/bash
 PIP=${ENV_FOLDER}/bin/pip
 .PHONY: help
