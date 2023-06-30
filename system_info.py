@@ -30,11 +30,12 @@ class System_info:
 
         return {"cpu_percent": psutil.cpu_percent(5), "cpu_count": psutil.cpu_count(), "cpu_freq": {"current":psutil.cpu_freq().current,"min":psutil.cpu_freq().min,"max":psutil.cpu_freq().max}, "cpu_usage": cpu_usage}  
 
-    def get_memory_ram():
+    def get_cpu_usage():
         load1, load5, load15 = psutil.getloadavg()
         cpu_usage = (load15/os.cpu_count()) * 100
+        percent = psutil.Process(os.getpid())
 
-        return {"cpu_percent": psutil.cpu_percent(5), "cpu_count": psutil.cpu_count(), "cpu_freq": {"current":psutil.cpu_freq().current,"min":psutil.cpu_freq().min,"max":psutil.cpu_freq().max}, "cpu_usage": cpu_usage}  
+        return {"percent": psutil.cpu_percent(0), "cpu_count": psutil.cpu_count(), "cpu_freq": {"current":psutil.cpu_freq().current,"min":psutil.cpu_freq().min,"max":psutil.cpu_freq().max}, "cpu_usage": cpu_usage}  
 
     def get_info():
         return {"IS_LINUX":psutil.LINUX}
