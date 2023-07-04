@@ -1,5 +1,4 @@
 psutil
 fastapi
 uvicorn[standard]
-reactpy[fastapi]
 gpiozero 
