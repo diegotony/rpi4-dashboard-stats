@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 import system_info as si
-import utils as util
 
 app = FastAPI()
 
